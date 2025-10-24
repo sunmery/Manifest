@@ -9,16 +9,16 @@ spec:
   project: default
   # 来源：指向您的 Helm Chart 仓库（即应用代码仓库）
   source:
-    # 🚨 必须指向包含 Helm Chart 的 Git 仓库 URL
-    repoURL: https://github.com/sunmery/connect-example.git
-    # Helm Chart 所在路径
-    path: helm
-    targetRevision: main        # 监控的分支
+    # 指向包含 Helm Chart 的 Git 仓库 URL或OCI 仓库 URL
+#    repoURL: https://github.com/sunmery/connect-example.git
+    repoURL: oci://registry-1.docker.io/lookeke
+    chart: connect-example-backend # 这是你打包的 Chart 的名称
+    # 指定 Chart 版本
+    # 默认使用 VERSION 环境变量 (v1.0.0)。
+    # 这是一个关键步骤：GitOps 流程的自动化将通过更新这个版本号来实现
+    targetRevision: 0.1.0
+
     helm:
-      # 💡 学习资料强调：releaseName 默认等于 Application name
-      releaseName: connect-example-backend
-      # **使用 valueFiles 覆盖：**
-      # 如果您的 GitHub Actions 更改了 values.yaml，Argo CD 将自动读取新值
       valueFiles:
         - values.yaml
       # **使用 parameters 覆盖：**

@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: connect-example-backend
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  # 来源：指向您的 Helm Chart 仓库（即应用代码仓库）
+  source:
+    # 🚨 必须指向包含 Helm Chart 的 Git 仓库 URL
+    repoURL: https://github.com/sunmery/connect-example.git
+    # Helm Chart 所在路径
+    path: helm
+    targetRevision: main        # 监控的分支
+    helm:
+      # 💡 学习资料强调：releaseName 默认等于 Application name
+      releaseName: connect-example-backend
+      # **使用 valueFiles 覆盖：**
+      # 如果您的 GitHub Actions 更改了 values.yaml，Argo CD 将自动读取新值
+      valueFiles:
+        - values.yaml
+      # **使用 parameters 覆盖：**
+      # 您也可以在这里硬编码参数，但会覆盖 values.yaml 中的值 (最高优先级)
+      # parameters:
+      #   - name: "service.type"
+      #     value: LoadBalancer
+
+  # 目标：指定部署到哪个集群和命名空间
+  destination:
+    server: "https://kubernetes.default.svc" # 集群 API Server 地址
+    namespace: connect-example
+
+  # 同步策略
+  syncPolicy:
+    automated: # 启用自动化同步
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true # 自动创建命名空间

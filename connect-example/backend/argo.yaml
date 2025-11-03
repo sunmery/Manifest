@@ -11,7 +11,7 @@ spec:
   source:
     # 指向包含 Helm Chart 的 Git 仓库 URL或OCI 仓库 URL
 #    repoURL: https://github.com/sunmery/connect-example.git
-    repoURL: oci://registry-1.docker.io/lookeke
+    repoURL: oci://harbor.apikv.com:5443/sumery
     chart: connect-example-backend # 这是你打包的 Chart 的名称
     # 指定 Chart 版本
     # 默认使用 VERSION 环境变量 (v1.0.0)。

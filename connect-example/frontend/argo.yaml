@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: connect-example-backend
+  name: connect-example-frontend
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,20 +10,20 @@ spec:
   # 来源：指向您的 Helm Chart 仓库（即应用代码仓库）
   source:
     # 指向包含 Helm Chart 的 Git 仓库 URL或OCI 仓库 URL
-#    repoURL: https://github.com/sunmery/connect-example.git
+    #    repoURL: https://github.com/sunmery/connect-example.git
     repoURL: oci://harbor.apikv.com:5443/sumery
-    chart: connect-example-backend-chart # 这是你打包的 Chart 的名称
+    chart: connect-example-frontend-chart # 这是你打包的 Chart 的名称
     # 指定 Chart 版本
     # 默认使用 VERSION 环境变量 (v1.0.0)。
     # 这是一个关键步骤：GitOps 流程的自动化将通过更新这个版本号来实现
-    targetRevision: 0.1.0
+    targetRevision: v1.0.0
 
     helm:
       valueFiles:
         - values.yaml
       # 您也可以在这里硬编码参数，但会覆盖 values.yaml 中的值 (最高优先级)
       parameters:
-        - name: "backend.image.tag"
+        - name: "frontend.image.tag"
           value: "latest"
 
   # 目标：指定部署到哪个集群和命名空间

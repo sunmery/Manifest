@@ -15,7 +15,6 @@ spec:
     chart: connect-example-frontend-chart # 这是你打包的 Chart 的名称
     # 指定 Chart 版本
     targetRevision: 1.0.0
-
     helm:
       valueFiles:
         - values.yaml
@@ -23,7 +22,6 @@ spec:
   destination:
     server: "https://kubernetes.default.svc" # 集群 API Server 地址
     namespace: connect-example
-
   # 同步策略
   syncPolicy:
     automated: # 启用自动化同步

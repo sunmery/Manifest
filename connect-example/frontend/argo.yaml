@@ -19,11 +19,6 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      # 可以在这里硬编码参数，但会覆盖 values.yaml 中的值 (最高优先级)
-      parameters:
-        - name: "frontend.image.tag"
-          value: "latest"
-
   # 目标：指定部署到哪个集群和命名空间
   destination:
     server: "https://kubernetes.default.svc" # 集群 API Server 地址

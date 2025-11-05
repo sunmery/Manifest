@@ -14,14 +14,12 @@ spec:
     repoURL: oci://harbor.apikv.com:5443/sumery
     chart: connect-example-frontend-chart # 这是你打包的 Chart 的名称
     # 指定 Chart 版本
-    # 默认使用 VERSION 环境变量 (v1.0.0)。
-    # 这是一个关键步骤：GitOps 流程的自动化将通过更新这个版本号来实现
-    targetRevision: v1.0.0
+    targetRevision: 1.0.0
 
     helm:
       valueFiles:
         - values.yaml
-      # 您也可以在这里硬编码参数，但会覆盖 values.yaml 中的值 (最高优先级)
+      # 可以在这里硬编码参数，但会覆盖 values.yaml 中的值 (最高优先级)
       parameters:
         - name: "frontend.image.tag"
           value: "latest"

@@ -16,7 +16,7 @@ spec:
     # 指定 Chart 版本
     # 默认使用 VERSION 环境变量 (v1.0.0)。
     # 这是一个关键步骤：GitOps 流程的自动化将通过更新这个版本号来实现
-    targetRevision: 0.1.0
+    targetRevision: 1.4.1
 
     helm:
       valueFiles:

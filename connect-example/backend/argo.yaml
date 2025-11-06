@@ -12,7 +12,7 @@ spec:
     repoURL: oci://harbor.apikv.com:5443/sumery/backend
     # repoURL: oci://ghcr.io/sunmery/connect-example/backend
     # 指定 Chart 版本
-    targetRevision: 1.5.0
+    targetRevision: 1.5.1
     path: .
     helm:
       valueFiles:

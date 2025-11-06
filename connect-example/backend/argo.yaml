@@ -7,20 +7,22 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  # 来源：指向您的 Helm Chart 仓库（即应用代码仓库）
   source:
-    #    repoURL: https://github.com/sunmery/connect-example.git
-    repoURL: oci://harbor.apikv.com:5443/sumery
-    # 指向包含 Helm Chart 的 Git 仓库 URL或OCI 仓库 URL
-    chart: connect-example-backend-chart # 这是你打包的 Chart 的名称
+    # https://argo-cd.readthedocs.io/en/latest/user-guide/oci/
+    repoURL: oci://harbor.apikv.com:5443/sumery/backend
+    # repoURL: oci://ghcr.io/sunmery/connect-example/backend
     # 指定 Chart 版本
-    targetRevision: 1.4
+    targetRevision: 1.5.0
+    path: .
     helm:
       valueFiles:
         - values.yaml
+      passCredentials: true
   # 目标：指定部署到哪个集群和命名空间
   destination:
-    server: "https://kubernetes.default.svc" # 集群 API Server 地址
+    # 集群 API Server 地址
+    server: https://kubernetes.default.svc
+    # 要部署到的命名空间
     namespace: connect-example
   # 同步策略
   syncPolicy:
